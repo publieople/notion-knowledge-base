@@ -1,0 +1,16 @@
+---
+title: suno
+source: tool
+notion_synced_at: "2026-05-04T11:30:07Z"
+标签:
+  - "音乐"
+用途: 通过文本，音频即可创作完整歌曲
+网址: "https://suno.com"
+名称: suno
+notion_id: "71366ad7-c9c4-83ae-9905-8142f4f247e4"
+last_edited_time: "2026-05-04"
+---
+
+<!-- Tool: suno -->
+
+通过文本，音频即可创作完整歌曲

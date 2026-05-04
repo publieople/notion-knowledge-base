@@ -1,0 +1,16 @@
+---
+title: 秒出PPT
+source: tool
+notion_synced_at: "2026-05-04T11:30:00Z"
+标签:
+  - "PPT"
+用途: 快速制作PPT
+网址: "https://10sppt.com"
+名称: 秒出PPT
+notion_id: "3e066ad7-c9c4-827e-a8fc-814008875f97"
+last_edited_time: "2026-05-04"
+---
+
+<!-- Tool: 秒出PPT -->
+
+快速制作PPT

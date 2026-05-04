@@ -6,7 +6,7 @@ title: Fish Audio
 网址: "https://fish.audio"
 notion_id: "e4c66ad7-c9c4-82c3-823d-01ff0eff7adb"
 last_edited_time: "2026-05-04"
-synced_at: "2026-05-04T12:06:24Z"
+synced_at: "2026-05-04T12:27:09Z"
 ---
 
 @人民公仆的邀请

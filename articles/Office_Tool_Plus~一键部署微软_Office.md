@@ -2,7 +2,7 @@
 title: Office Tool Plus~一键部署微软 Office
 notion_id: "48366ad7-c9c4-83a3-93b6-01ac378ccd86"
 last_edited_time: "2026-05-04"
-synced_at: "2026-05-04T11:59:59Z"
+synced_at: "2026-05-04T12:22:40Z"
 ---
 
 ## 介绍

@@ -7,7 +7,7 @@ title: KREA
 网址: "https://www.krea.ai"
 notion_id: "0ca66ad7-c9c4-82ca-a006-812131da7524"
 last_edited_time: "2026-05-04"
-synced_at: "2026-05-04T12:05:55Z"
+synced_at: "2026-05-04T12:26:38Z"
 ---
 
 探索数百万 AI 生成的图像并创建提示集合

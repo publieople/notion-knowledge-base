@@ -669,18 +669,33 @@ def sync_notion_to_github():
             created_time = props.get("created_time", {}).get("created_time", "")[:10] if "created_time" in props else ""
             last_edited = page_info.get("last_edited_time", "")[:10]
             
-            # Extract content
-            content_lines = walk_blocks(page_id)
+            # Extract content using notion-to-md (Node.js) for better quality
+            n2m_script = os.path.join(SCRIPTS_DIR, "n2m-convert.js")
+            try:
+                r = subprocess.run(
+                    ["node", n2m_script, page_id],
+                    capture_output=True, text=True, timeout=60
+                )
+                if r.returncode == 0 and r.stdout.strip():
+                    md_content = r.stdout.strip()
+                else:
+                    # Fallback to Python walker
+                    print(f"⚠️  n2m fell back, using Python walker...")
+                    content_lines = walk_blocks(page_id)
+                    md_content = "\n".join(content_lines) if content_lines else ""
+            except Exception as e:
+                print(f"⚠️  n2m error ({e}), using Python walker...")
+                content_lines = walk_blocks(page_id)
+                md_content = "\n".join(content_lines) if content_lines else ""
             
             # Build properties
             properties = {
                 "notion_id": page_id,
-                "created_time": created_time,
                 "last_edited_time": last_edited,
             }
             
             # Generate markdown
-            md = generate_markdown(title, properties, content_lines, "article")
+            md = generate_markdown(title, properties, md_content, "article")
             
             # Save file (overwrite if exists)
             safe_name = file_safe_title(title)

@@ -1,0 +1,25 @@
+{
+  "name": "notion-knowledge-base",
+  "version": "1.0.0",
+  "description": "自动同步来自 Notion 的知识库内容。",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/publieople/notion-knowledge-base.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/publieople/notion-knowledge-base/issues"
+  },
+  "homepage": "https://github.com/publieople/notion-knowledge-base#readme",
+  "dependencies": {
+    "@notionhq/client": "^5.20.0",
+    "notion-to-md": "^3.1.9"
+  }
+}

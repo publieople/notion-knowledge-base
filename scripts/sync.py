@@ -645,14 +645,9 @@ def sync_notion_to_github():
             # Generate markdown
             md = generate_markdown(title, properties, content_lines, "article")
             
-            # Save file
+            # Save file (overwrite if exists)
             safe_name = file_safe_title(title)
             filepath = os.path.join(articles_dir, f"{safe_name}.md")
-            # Handle conflicts
-            counter = 1
-            while os.path.exists(filepath):
-                filepath = os.path.join(articles_dir, f"{safe_name}_{counter}.md")
-                counter += 1
             
             with open(filepath, "w", encoding="utf-8") as f:
                 f.write(md)

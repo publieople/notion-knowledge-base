@@ -1,10 +1,8 @@
 ---
 title: Folo~次世代信息源聚合站
-source: article
-notion_synced_at: "2026-05-04T11:32:21Z"
 notion_id: "5a866ad7-c9c4-8201-91eb-01a7d1570371"
-created_time: 
 last_edited_time: "2026-05-04"
+synced_at: "2026-05-04T11:53:05Z"
 ---
 
 ## 介绍
@@ -13,7 +11,7 @@ last_edited_time: "2026-05-04"
 ---
 ## 视频教程
 > 来自@技术爬爬虾的优质视频教程介绍了 Folo 及其使用方法。
-  [🔗 https://www.bilibili.com/video/BV1S2UDYWEKs/](https://www.bilibili.com/video/BV1S2UDYWEKs/)
+<https://www.bilibili.com/video/BV1S2UDYWEKs/>
 ---
 ## RSS → RSSHub → Folo
 在深入了解 Folo 之前，我们先来了解一下 RSS 和 RSSHub。

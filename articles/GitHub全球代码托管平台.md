@@ -1,10 +1,8 @@
 ---
 title: GitHub~全球代码托管平台
-source: article
-notion_synced_at: "2026-05-04T11:33:19Z"
 notion_id: "bc066ad7-c9c4-8321-bf3e-01ad0a7ceea5"
-created_time: 
 last_edited_time: "2026-05-04"
+synced_at: "2026-05-04T11:53:56Z"
 ---
 
 ## 介绍
@@ -18,10 +16,10 @@ GitHub 上的内容无需注册即可随意下载
 1. 找到并进入你需要的项目地址
 1. 白嫖之前最好先阅读 README，了解软件详情和安装方法
 1. 下载软件
-  1. 首先，如果该仓库 README 中有安装教程，请遵循安装教程
-  1. 如果没有，可以到 Releases(发行版) 部分下载最新的软件包
-  1. 如果没有发行版，可以在仓库页面上找到“Code”按钮，点击后选择“Download ZIP”下载整个仓库的源代码
-  1. 或者，如果你熟悉Git，可以使用Git命令行克隆仓库到本地运行
+1. 首先，如果该仓库 README 中有安装教程，请遵循安装教程
+1. 如果没有，可以到 Releases(发行版) 部分下载最新的软件包
+1. 如果没有发行版，可以在仓库页面上找到“Code”按钮，点击后选择“Download ZIP”下载整个仓库的源代码
+1. 或者，如果你熟悉Git，可以使用Git命令行克隆仓库到本地运行
 > 汉化 GitHub 的浏览器脚本：https://github.com/maboloshi/github-chinese
 ---
 ## DeepWiki

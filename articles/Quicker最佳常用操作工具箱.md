@@ -1,10 +1,8 @@
 ---
 title: Quicker~最佳常用操作工具箱
-source: article
-notion_synced_at: "2026-05-04T11:32:41Z"
 notion_id: "cfd66ad7-c9c4-83fa-a1d1-814b72445a33"
-created_time: 
 last_edited_time: "2026-05-04"
+synced_at: "2026-05-04T11:53:26Z"
 ---
 
 ## 介绍
@@ -17,4 +15,4 @@ Quicker 的功能十分强大
 > Quicker = 动作 + 触发方式 + 辅助功能
 小到截图贴图，大到 AI 应用，都能使用 Quicker 构建
 具体动作使用方法可以参考官方文档和动作主页
-![单击鼠标中键（可设置）即可弹出快捷面板。](IMAGE_PLACEHOLDER)
+*📷 单击鼠标中键（可设置）即可弹出快捷面板。*

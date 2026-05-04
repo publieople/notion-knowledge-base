@@ -237,8 +237,8 @@ def extract_rich_text(block, btype):
 
 
 def walk_blocks(parent_block_id, depth=0, page_size=100):
-    """Recursively walk blocks and return structured markdown lines.
-    Handles: synced_block, column_list, column, toggle, nested lists, tables."""
+    """Recursively walk blocks and return clean markdown lines.
+    Filters out structural comments, condenses dividers, cleans toggles."""
     lines = []
     blocks = get_blocks(parent_block_id, page_size)
     
@@ -253,132 +253,153 @@ def walk_blocks(parent_block_id, depth=0, page_size=100):
         if btype in ("heading_1", "heading_2", "heading_3"):
             prefix = "#" * int(btype[-1])
             text = extract_rich_text(block, btype)
-            line = f"{indent}{prefix} {text}"
+            if text.strip():
+                line = f"{prefix} {text}"
         
-        # ── Paragraph / Text ──
+        # ── Paragraph ──
         elif btype == "paragraph":
             text = extract_rich_text(block, btype)
             if text.strip():
-                line = f"{indent}{text}"
+                line = text
         
         # ── List items ──
         elif btype == "bulleted_list_item":
             text = extract_rich_text(block, btype)
-            line = f"{indent}- {text}"
+            children_indent = " " * (depth * 2 + 2)
+            line = f"- {text}"
+            if has_children:
+                child_lines = walk_blocks(block_id, depth + 1, page_size)
+                lines.append(line)
+                lines.extend(child_lines)
+                continue
+        
         elif btype == "numbered_list_item":
             text = extract_rich_text(block, btype)
-            # Use "1." for all — markdown auto-numbers
-            line = f"{indent}1. {text}"
+            children_indent = " " * (depth * 2 + 3)
+            line = f"1. {text}"
+            if has_children:
+                child_lines = walk_blocks(block_id, depth + 1, page_size)
+                lines.append(line)
+                lines.extend(child_lines)
+                continue
         
         # ── To-do ──
         elif btype == "to_do":
             checked = block.get("to_do", {}).get("checked", False)
             text = extract_rich_text(block, btype)
-            checkbox = "x" if checked else " "
-            line = f"{indent}- [{'x' if checked else ' '}] {text}"
+            line = f"- [{'x' if checked else ' '}] {text}"
         
         # ── Callout / Quote ──
         elif btype == "callout":
             text = extract_rich_text(block, btype)
-            line = f"{indent}> {text}"
+            if text.strip():
+                line = f"> {text}"
         elif btype == "quote":
             text = extract_rich_text(block, btype)
-            line = f"{indent}> {text}"
+            if text.strip():
+                line = f"> {text}"
         
         # ── Toggle ──
         elif btype == "toggle":
             text = extract_rich_text(block, btype)
-            line = f"{indent}<details><summary>{text}</summary>\n{indent}\n"
-            if has_children:
-                child_lines = walk_blocks(block_id, depth + 1, page_size)
-                lines.append(line)
+            if text.strip():
+                line = f"<details><summary>{text}</summary>"
+                if has_children:
+                    child_lines = walk_blocks(block_id, depth + 1, page_size)
+                    lines.append(line)
+                    lines.extend(child_lines)
+                    lines.append("</details>")
+                else:
+                    lines.append(f"{line}</details>")
+                continue
+            elif has_children:
+                child_lines = walk_blocks(block_id, depth, page_size)
                 lines.extend(child_lines)
-                lines.append(f"{indent}</details>")
+                continue
             else:
-                lines.append(line)
-            continue  # already handled children
+                continue
         
         # ── Code ──
         elif btype == "code":
             lang = block.get("code", {}).get("language", "")
             text = extract_rich_text(block, btype)
-            line = f"{indent}```{lang}\n{text}\n{indent}```"
+            line = f"```{lang}\n{text}\n```"
         
         # ── Divider ──
         elif btype == "divider":
-            line = f"{indent}---"
+            # Only add divider if previous line wasn't already one
+            if lines and lines[-1].strip() == "---":
+                continue
+            line = "---"
         
         # ── Image ──
         elif btype == "image":
             caption = block.get("image", {}).get("caption", [])
             cap_text = "".join(t.get("plain_text", "") for t in caption)
-            line = f"{indent}![{cap_text}](IMAGE_PLACEHOLDER)"
+            if cap_text:
+                line = f"*📷 {cap_text}*"
+            else:
+                line = "*📷 图片*"
         
         # ── Bookmark / Embed ──
         elif btype == "bookmark":
             url = block.get("bookmark", {}).get("url", "")
-            line = f"{indent}[🔗 {url}]({url})"
+            text = extract_rich_text(block, btype)
+            if text.strip():
+                line = f"[🔗 {text.strip()}]({url})"
+            else:
+                line = f"<{url}>"
+        
         elif btype == "embed":
             url = block.get("embed", {}).get("url", "")
-            line = f"{indent}[🔗 Embedded: {url}]({url})"
+            if url:
+                line = f"<{url}>"
         
         # ── Video / File / PDF ──
         elif btype in ("video", "file", "pdf"):
-            line = f"{indent}[{btype.upper()}]"
+            line = f"*[{btype.upper()}]*"
         
         # ── Equation ──
         elif btype == "equation":
             expr = block.get("equation", {}).get("expression", "")
-            line = f"{indent}$$ {expr} $$"
+            if expr.strip():
+                line = f"$$ {expr} $$"
         
         # ── Table ──
         elif btype == "table":
-            line = f"{indent}<!-- TABLE -->"
             if has_children:
                 child_lines = walk_blocks(block_id, depth, page_size)
-                lines.append(line)
                 lines.extend(child_lines)
                 continue
         
         elif btype == "table_row":
             cells = block.get("table_row", {}).get("cells", [])
             cell_texts = ["".join(t.get("plain_text", "") for t in cell) for cell in cells]
-            line = f"{indent}| " + " | ".join(cell_texts) + " |"
+            line = "| " + " | ".join(cell_texts) + " |"
         
-        # ── Structural containers ──
-        elif btype == "column_list":
-            if has_children:
-                child_lines = walk_blocks(block_id, depth, page_size)
-                lines.append(f"{indent}<!-- COLUMN_LIST -->")
-                lines.extend(child_lines)
-                lines.append(f"{indent}<!-- /COLUMN_LIST -->")
-                continue
-        
-        elif btype == "column":
-            if has_children:
-                child_lines = walk_blocks(block_id, depth + 1, page_size)
-                lines.append(f"{indent}<!-- COLUMN -->")
-                lines.extend(child_lines)
-                lines.append(f"{indent}<!-- /COLUMN -->")
-                continue
-        
-        elif btype == "synced_block":
+        # ── Structural containers (just unwrap silently) ──
+        elif btype in ("column_list", "column", "synced_block"):
             if has_children:
                 child_lines = walk_blocks(block_id, depth, page_size)
                 lines.extend(child_lines)
-                continue  # synced_block is transparent
+                continue
         
-        # ── Unknown ──
+        # ── Child database reference ──
+        elif btype == "child_database":
+            continue  # silently skip child database references
+        
+        # ── Unknown—skip silently ──
         else:
-            line = f"{indent}<!-- {btype.upper()} -->"
+            continue
         
         if line:
             lines.append(line)
         
         # Recurse into children for most types
         if has_children and btype not in (
-            "toggle", "column_list", "column", "synced_block",
-            "table"  # table is handled above with continue
+            "toggle", "bulleted_list_item", "numbered_list_item",
+            "column_list", "column", "synced_block",
+            "table"
         ):
             child_lines = walk_blocks(block_id, depth + 1, page_size)
             lines.extend(child_lines)
@@ -487,23 +508,29 @@ def file_safe_title(title):
 
 # ── Markdown Generation ─────────────────────────────────────────────────────
 def generate_markdown(title, properties, content_lines, source_type="article"):
-    """Generate full markdown with YAML frontmatter."""
+    """Generate clean markdown with YAML frontmatter (no empty values)."""
     
     now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     
-    # Build frontmatter
+    # Build frontmatter - only non-empty values
     frontmatter = {
         "title": title,
-        "source": source_type,
-        "notion_synced_at": now,
     }
     
-    # Add extracted properties (with some mapping for cleanliness)
+    # Add properties (skip empty values and internal fields)
+    skip_keys = {"在本项目中", "created_time", "名称", "ID"}
     for key, value in properties.items():
-        # Normalize some common field names
-        if key == "在本项目中":
-            continue  # skip internal field
+        if key in skip_keys:
+            continue
+        # Skip empty values
+        if value is None or value == "" or value == [] or value == {}:
+            continue
         frontmatter[key] = value
+    
+    # Always add notion_id and sync timestamp
+    if properties.get("notion_id"):
+        frontmatter["notion_id"] = properties["notion_id"]
+    frontmatter["synced_at"] = now
     
     # Serialize frontmatter to YAML
     yaml_lines = ["---"]
@@ -511,8 +538,9 @@ def generate_markdown(title, properties, content_lines, source_type="article"):
         yaml_lines.append(yaml_value(key, value))
     yaml_lines.append("---")
     
-    # Join with content
+    # Clean content: remove leading/trailing blank lines
     content = content_lines if isinstance(content_lines, str) else "\n".join(content_lines)
+    content = content.strip()
     
     return "\n".join(yaml_lines) + "\n\n" + content + "\n"
 
@@ -694,9 +722,11 @@ def sync_notion_to_github():
             # Extract content (if any)
             content_lines = walk_blocks(entry_id)
             if not content_lines:
-                content_lines = [f"<!-- Tool: {title} -->"]
-                if "用途" in db_props:
-                    content_lines.append(f"\n{db_props['用途']}")
+                content_lines = []
+            if "用途" in db_props:
+                usage_text = db_props.get("用途", "")
+                if usage_text and not content_lines:
+                    content_lines = [usage_text]
             
             # Generate markdown
             md = generate_markdown(title, db_props, content_lines, "tool")
@@ -745,9 +775,7 @@ def sync_notion_to_github():
             
             content_lines = walk_blocks(entry_id)
             if not content_lines:
-                content_lines = [f"<!-- Community: {title} -->"]
-                if "在本项目中" in db_props:
-                    content_lines.append(f"\n{db_props.pop('在本项目中')}")
+                content_lines = []
             
             md = generate_markdown(title, db_props, content_lines, "community")
             

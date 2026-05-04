@@ -1,10 +1,8 @@
 ---
 title: CS自学指南~一本计算机科学的自学指南
-source: article
-notion_synced_at: "2026-05-04T11:32:18Z"
 notion_id: "99b66ad7-c9c4-8296-a2ab-01eb8a7bfcac"
-created_time: 
 last_edited_time: "2026-05-04"
+synced_at: "2026-05-04T11:53:02Z"
 ---
 
 ## 介绍
@@ -14,4 +12,4 @@ last_edited_time: "2026-05-04"
 ## 用法
 此项目自带详细的使用指南，可在下方参阅
 ### 使用指南
-  [🔗 Embedded: https://csdiy.wiki/使用指南/](https://csdiy.wiki/使用指南/)
+<https://csdiy.wiki/使用指南/>

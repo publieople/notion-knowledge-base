@@ -1,7 +1,7 @@
 ---
 title: 秒出PPT
 source: tool
-notion_synced_at: "2026-05-04T11:30:00Z"
+notion_synced_at: "2026-05-04T11:37:47Z"
 标签:
   - "PPT"
 用途: 快速制作PPT

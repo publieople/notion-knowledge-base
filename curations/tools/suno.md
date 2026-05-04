@@ -1,7 +1,7 @@
 ---
 title: suno
 source: tool
-notion_synced_at: "2026-05-04T11:30:07Z"
+notion_synced_at: "2026-05-04T11:37:52Z"
 标签:
   - "音乐"
 用途: 通过文本，音频即可创作完整歌曲

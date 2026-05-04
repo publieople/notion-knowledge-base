@@ -1,7 +1,7 @@
 ---
 title: AI Short
 source: tool
-notion_synced_at: "2026-05-04T11:30:09Z"
+notion_synced_at: "2026-05-04T11:37:53Z"
 标签:
   - "提示词"
 用途: AI提示词分享平台

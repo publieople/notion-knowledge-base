@@ -1,7 +1,7 @@
 ---
 title: Open Alternative
 source: tool
-notion_synced_at: "2026-05-04T11:29:49Z"
+notion_synced_at: "2026-05-04T11:37:37Z"
 标签:
   - "搜索引擎"
 用途: 寻找流行软件的开源替代品

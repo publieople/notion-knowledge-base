@@ -1,7 +1,7 @@
 ---
 title: notion
 source: tool
-notion_synced_at: "2026-05-04T11:30:04Z"
+notion_synced_at: "2026-05-04T11:37:50Z"
 标签:
   - "笔记"
 用途: 世界上最好的笔记软件

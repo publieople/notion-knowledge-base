@@ -1,7 +1,7 @@
 ---
 title: "Notion~最好的笔记(?)软件"
 source: article
-notion_synced_at: "2026-05-04T11:18:20Z"
+notion_synced_at: "2026-05-04T11:33:11Z"
 notion_id: "b7366ad7-c9c4-8272-9a01-017ec58fd83a"
 created_time: 
 last_edited_time: "2026-05-04"

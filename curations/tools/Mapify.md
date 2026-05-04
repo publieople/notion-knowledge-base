@@ -1,7 +1,7 @@
 ---
 title: Mapify
 source: tool
-notion_synced_at: "2026-05-04T11:30:10Z"
+notion_synced_at: "2026-05-04T11:37:55Z"
 标签:
   - "思维导图"
 用途: AI总结生成思维导图

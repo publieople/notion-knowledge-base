@@ -1,7 +1,7 @@
 ---
 title: gamma
 source: tool
-notion_synced_at: "2026-05-04T11:29:52Z"
+notion_synced_at: "2026-05-04T11:37:40Z"
 标签:
   - "PPT"
   - "网页"

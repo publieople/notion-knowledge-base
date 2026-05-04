@@ -1,7 +1,7 @@
 ---
 title: Fish Audio
 source: tool
-notion_synced_at: "2026-05-04T11:30:22Z"
+notion_synced_at: "2026-05-04T11:38:06Z"
 标签:
   - "音频"
 用途: 开发团队光看头像就知道有多强

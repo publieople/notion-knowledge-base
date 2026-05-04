@@ -1,7 +1,7 @@
 ---
 title: Poster Generator
 source: tool
-notion_synced_at: "2026-05-04T11:29:53Z"
+notion_synced_at: "2026-05-04T11:37:42Z"
 标签:
   - "设计"
 用途: 海豹报生成器

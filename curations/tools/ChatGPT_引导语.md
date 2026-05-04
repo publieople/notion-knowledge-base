@@ -1,7 +1,7 @@
 ---
 title: ChatGPT 引导语
 source: tool
-notion_synced_at: "2026-05-04T11:29:55Z"
+notion_synced_at: "2026-05-04T11:37:44Z"
 标签:
   - "提示词"
 用途: 分门别类的 AI 引导语大全

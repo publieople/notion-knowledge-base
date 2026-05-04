@@ -1,7 +1,7 @@
 ---
 title: wolfram alpha
 source: tool
-notion_synced_at: "2026-05-04T11:29:59Z"
+notion_synced_at: "2026-05-04T11:37:46Z"
 标签:
   - "学术"
 用途: 使用 Wolfram 知识库和AI搜索学术知识

@@ -1,7 +1,7 @@
 ---
 title: ReadPaper
 source: tool
-notion_synced_at: "2026-05-04T11:30:14Z"
+notion_synced_at: "2026-05-04T11:37:58Z"
 标签:
   - "学术"
 用途: 在线论文阅读笔记

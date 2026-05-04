@@ -2,7 +2,7 @@
 title: AI 带来了什么
 notion_id: "0bb66ad7-c9c4-8397-90cd-01e8486a47e7"
 last_edited_time: "2026-05-04"
-synced_at: "2026-05-04T11:54:13Z"
+synced_at: "2026-05-04T12:01:38Z"
 ---
 
 ## 介绍

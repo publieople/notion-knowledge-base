@@ -6,7 +6,7 @@ title: notion
 网址: "http://notion.so"
 notion_id: "6bf66ad7-c9c4-82b2-91b6-0137e91ea072"
 last_edited_time: "2026-05-04"
-synced_at: "2026-05-04T11:58:22Z"
+synced_at: "2026-05-04T12:06:06Z"
 ---
 
 世界上最好的笔记软件

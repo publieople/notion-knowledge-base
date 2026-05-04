@@ -2,7 +2,7 @@
 title: UniGetUI～更权威的软件包管理器
 notion_id: "00c66ad7-c9c4-8231-8f7f-01139236f5fc"
 last_edited_time: "2026-05-04"
-synced_at: "2026-05-04T11:53:53Z"
+synced_at: "2026-05-04T12:01:12Z"
 ---
 
 ## 介绍

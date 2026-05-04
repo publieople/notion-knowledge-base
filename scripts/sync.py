@@ -325,10 +325,13 @@ def walk_blocks(parent_block_id, depth=0, page_size=100):
             text = extract_rich_text(block, btype)
             line = f"```{lang}\n{text}\n```"
         
-        # ── Divider ──
+        # ── Divider — skip if preceded by heading or another divider ──
         elif btype == "divider":
-            # Only add divider if previous line wasn't already one
-            if lines and lines[-1].strip() == "---":
+            # Don't add if:
+            # 1. Previous line was already a divider
+            # 2. Previous line was a heading (headings already provide separation)
+            # 3. Previous line was the frontmatter end (---)
+            if lines and (lines[-1].strip() == "---" or lines[-1].strip().startswith("# ")):
                 continue
             line = "---"
         
@@ -497,11 +500,14 @@ def sanitize_filename(name, max_len=80):
 
 
 def file_safe_title(title):
-    """Create a file-safe version of the title for the filename."""
+    """Create a file-safe version of the title for the filename.
+    Preserves common characters, only removes truly invalid ones."""
     safe = title.strip()
-    safe = re.sub(r'[\s]+', '_', safe)
-    safe = re.sub(r'[^\w\-_.]', '', safe)
-    if not safe:
+    # Replace spaces with underscores
+    safe = safe.replace(" ", "_")
+    # Remove only truly OS-invalid characters
+    safe = re.sub(r'[\\/:*"<>|]', '', safe)
+    if not safe or safe == '_':
         safe = "untitled"
     return safe[:80]
 
@@ -541,6 +547,9 @@ def generate_markdown(title, properties, content_lines, source_type="article"):
     # Clean content: remove leading/trailing blank lines
     content = content_lines if isinstance(content_lines, str) else "\n".join(content_lines)
     content = content.strip()
+    
+    if not content:
+        return "\n".join(yaml_lines) + "\n"
     
     return "\n".join(yaml_lines) + "\n\n" + content + "\n"
 
